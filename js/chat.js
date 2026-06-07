@@ -58,6 +58,22 @@ document.getElementById('ping-3').addEventListener('click', () => {
   sendMessage(`[${label}]`);
 });
 
+function subscribeToMessages(userId) {
+  sbClient
+    .channel('messages')
+    .on('postgres_changes', {
+      event: 'INSERT',
+      schema: 'public',
+      table: 'messages',
+      filter: `user_id=eq.${userId}`
+    }, (payload) => {
+      if (payload.new.direction === 'incoming') {
+        renderMessage(payload.new.content, 'incoming');
+      }
+    })
+    .subscribe();
+}
+
 // Init
 (async () => {
   const session = await requireAuth();
@@ -65,4 +81,6 @@ document.getElementById('ping-3').addEventListener('click', () => {
 
   const isPaid = localStorage.getItem('pb_paid') === 'true';
   if (isPaid) await loadMessages(session.user.id);
+
+  subscribeToMessages(session.user.id);
 })();
