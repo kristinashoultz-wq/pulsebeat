@@ -60,12 +60,17 @@
           return;
         }
 
-        const result = await signUp(name, email, password);
-        if (result.error) {
-          errorMsg.textContent = result.error;
+        try {
+          const result = await signUp(name, email, password);
+          if (result.error) {
+            errorMsg.textContent = result.error;
+            errorMsg.style.display = 'block';
+          } else {
+            window.location.href = 'welcome.html';
+          }
+        } catch (err) {
+          errorMsg.textContent = 'Something went wrong: ' + err.message;
           errorMsg.style.display = 'block';
-        } else {
-          window.location.href = 'welcome.html';
         }
       });
     </script>
