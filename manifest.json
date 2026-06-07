@@ -1,0 +1,17 @@
+{
+  "name": "PulseBeat",
+  "short_name": "PulseBeat",
+  "description": "Feel what matters.",
+  "start_url": "./signin.html",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#00b4a6",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
