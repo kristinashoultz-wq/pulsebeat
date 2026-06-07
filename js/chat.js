@@ -15,7 +15,7 @@ function renderMessage(content, direction) {
 
 async function loadMessages(userId) {
   const { data, error } = await sbClient
-    .from('messages')
+    .from('Messages')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: true });
@@ -27,7 +27,7 @@ async function loadMessages(userId) {
 async function sendMessage(content) {
   renderMessage(content, 'outgoing');
 
-  const { error } = await sbClient.from('messages').insert({
+  const { error } = await sbClient.from('Messages').insert({
     user_id: currentSession.user.id,
     content,
     direction: 'outgoing'
@@ -64,7 +64,7 @@ function subscribeToMessages(userId) {
     .on('postgres_changes', {
       event: 'INSERT',
       schema: 'public',
-      table: 'messages',
+      table: 'Messages',
       filter: `user_id=eq.${userId}`
     }, (payload) => {
       if (payload.new.direction === 'incoming') {
