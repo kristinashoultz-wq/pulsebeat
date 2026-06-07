@@ -14,7 +14,7 @@ function renderMessage(content, direction) {
 }
 
 async function loadMessages(userId) {
-  const { data, error } = await supabase
+  const { data, error } = await sbClient
     .from('messages')
     .select('*')
     .eq('user_id', userId)
@@ -27,7 +27,7 @@ async function loadMessages(userId) {
 async function sendMessage(content) {
   renderMessage(content, 'outgoing');
 
-  const { error } = await supabase.from('messages').insert({
+  const { error } = await sbClient.from('messages').insert({
     user_id: currentSession.user.id,
     content,
     direction: 'outgoing'

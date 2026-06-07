@@ -1,26 +1,26 @@
 // Redirect to chat if already signed in
 async function requireGuest() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sbClient.auth.getSession();
   if (session) window.location.href = 'chat.html';
 }
 
 // Redirect to signin if not signed in
 async function requireAuth() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sbClient.auth.getSession();
   if (!session) window.location.href = 'signin.html';
   return session;
 }
 
 // Sign in
 async function signIn(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
   if (error) return { error: error.message };
   return { data };
 }
 
 // Sign up
 async function signUp(name, email, password) {
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await sbClient.auth.signUp({
     email,
     password,
     options: { data: { display_name: name } }
@@ -31,6 +31,6 @@ async function signUp(name, email, password) {
 
 // Sign out
 async function signOut() {
-  await supabase.auth.signOut();
+  await sbClient.auth.signOut();
   window.location.href = 'signin.html';
 }
