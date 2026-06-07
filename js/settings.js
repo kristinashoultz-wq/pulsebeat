@@ -41,3 +41,27 @@ function saveSettings() {
 }
 
 loadSettings();
+
+async function getApiKey() {
+  const cached = localStorage.getItem('pb_api_key');
+  if (cached) return cached;
+  const { data } = await sbClient.from('user_keys').select('key').order('created_at').limit(1).maybeSingle();
+  if (data) {
+    localStorage.setItem('pb_api_key', data.key);
+    return data.key;
+  }
+  return null;
+}
+
+async function generateApiKey() {
+  const { data: { user } } = await sbClient.auth.getUser();
+  await sbClient.from('user_keys').delete().eq('user_id', user.id);
+  const key = 'pb_' + Array.from(crypto.getRandomValues(new Uint8Array(24)))
+    .map(b => b.toString(16).padStart(2, '0')).join('');
+  const { error } = await sbClient.from('user_keys').insert({ user_id: user.id, key });
+  if (!error) {
+    localStorage.setItem('pb_api_key', key);
+    return key;
+  }
+  return null;
+}

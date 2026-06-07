@@ -83,6 +83,22 @@
       </section>
 
       <section>
+        <h2>AI connection</h2>
+        <p>Share this key with your AI so it can send signals directly to your app.</p>
+        <article>
+          <label for="api-key-display">Your API key</label>
+          <input type="text" id="api-key-display" readonly placeholder="No key yet">
+          <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" id="copy-key-btn">Copy key</button>
+            <button type="button" id="generate-key-btn" class="secondary">Generate new key</button>
+          </div>
+          <p style="margin-top: 0.75rem; font-size: 0.85rem; opacity: 0.7;">
+            See <a href="developers.html">developer docs</a> for setup instructions.
+          </p>
+        </article>
+      </section>
+
+      <section>
         <button type="button" id="save-btn">Save settings</button>
       </section>
 
@@ -115,6 +131,26 @@
       });
 
       document.getElementById('signout-btn').addEventListener('click', signOut);
+
+      // API key section
+      getApiKey().then(key => {
+        if (key) document.getElementById('api-key-display').value = key;
+      });
+
+      document.getElementById('copy-key-btn').addEventListener('click', () => {
+        const val = document.getElementById('api-key-display').value;
+        if (!val) return;
+        navigator.clipboard.writeText(val);
+        document.getElementById('copy-key-btn').textContent = 'Copied!';
+        setTimeout(() => document.getElementById('copy-key-btn').textContent = 'Copy key', 2000);
+      });
+
+      document.getElementById('generate-key-btn').addEventListener('click', async () => {
+        document.getElementById('generate-key-btn').textContent = 'Generating...';
+        const key = await generateApiKey();
+        if (key) document.getElementById('api-key-display').value = key;
+        document.getElementById('generate-key-btn').textContent = 'Generate new key';
+      });
     </script>
   </body>
 </html>

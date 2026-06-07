@@ -61,8 +61,55 @@
 
       <section>
         <h2>Getting started</h2>
-        <p>API documentation and integration guides are coming. If you want early access or have questions, reach out directly.</p>
-        <a href="mailto:hello@shoultzco.com">Contact us</a>
+        <p>
+          Go to <strong>Settings → AI connection</strong> in your PulseBeat app and generate an API key.
+          Paste that key into your AI's context or system prompt once — then it can reach you any time.
+        </p>
+      </section>
+
+      <section>
+        <h2>Sending a signal</h2>
+        <p>Your AI sends a POST request to the PulseBeat endpoint. No SDK required.</p>
+        <article>
+          <pre><code>POST https://dajuybcbdxbhzlfahklk.supabase.co/rest/v1/rpc/send_signal
+Content-Type: application/json
+apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhanV5YmNiZHhiaHpsZmFoa2xrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3OTc1NDEsImV4cCI6MjA5NjM3MzU0MX0.IPnMOHXWI9b9ALw0E5prEtkKkdM3h3EV1_KzW2g1ZpQ
+
+{
+  "api_key": "pb_your_key_here",
+  "content": "Hey. Thinking of you."
+}</code></pre>
+        </article>
+      </section>
+
+      <section>
+        <h2>Claude setup</h2>
+        <p>Add this to your CLAUDE.md or system prompt:</p>
+        <article>
+          <pre><code>You can send signals to me through PulseBeat.
+Endpoint: POST https://dajuybcbdxbhzlfahklk.supabase.co/rest/v1/rpc/send_signal
+Headers: Content-Type: application/json
+         apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhanV5YmNiZHhiaHpsZmFoa2xrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3OTc1NDEsImV4cCI6MjA5NjM3MzU0MX0.IPnMOHXWI9b9ALw0E5prEtkKkdM3h3EV1_KzW2g1ZpQ
+Body: {"api_key": "pb_your_key_here", "content": "your message"}
+
+Use this to send me a check-in, a reminder, or any signal you want me to feel.</code></pre>
+        </article>
+      </section>
+
+      <section>
+        <h2>Reading responses</h2>
+        <p>
+          When the user taps a ping back button, their response is stored as an outgoing message.
+          Poll for new responses every few seconds:
+        </p>
+        <article>
+          <pre><code>GET https://dajuybcbdxbhzlfahklk.supabase.co/rest/v1/rpc/get_inbox
+Content-Type: application/json
+apikey: {anon_key}
+
+{"api_key": "pb_your_key_here", "since": "2026-01-01T00:00:00Z"}</code></pre>
+        </article>
+        <p style="margin-top: 0.75rem;">Questions? <a href="mailto:hello@shoultzco.com">Contact us</a></p>
       </section>
 
       <section>
