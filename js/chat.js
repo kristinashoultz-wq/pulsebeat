@@ -58,19 +58,21 @@ document.getElementById('ping-3').addEventListener('click', () => {
   sendMessage(`[${label}]`);
 });
 
-function subscribeToMessages(userId) {
-  sbClient
-    .channel('messages')
-    .on('postgres_changes', {
-      event: 'INSERT',
-      schema: 'public',
-      table: 'Messages'
-    }, (payload) => {
-      if (payload.new.user_id === userId && payload.new.direction === 'incoming') {
-        renderMessage(payload.new.content, 'incoming');
-      }
-    })
-    .subscribe();
+let lastMessageTime = new Date().toISOString();
+
+async function pollIncoming(userId) {
+  const { data } = await sbClient
+    .from('Messages')
+    .select('*')
+    .eq('user_id', userId)
+    .eq('direction', 'incoming')
+    .gt('created_at', lastMessageTime)
+    .order('created_at', { ascending: true });
+
+  if (data && data.length > 0) {
+    data.forEach(msg => renderMessage(msg.content, 'incoming'));
+    lastMessageTime = data[data.length - 1].created_at;
+  }
 }
 
 // Init
@@ -81,5 +83,5 @@ function subscribeToMessages(userId) {
   const isPaid = localStorage.getItem('pb_paid') === 'true';
   if (isPaid) await loadMessages(session.user.id);
 
-  subscribeToMessages(session.user.id);
+  setInterval(() => pollIncoming(session.user.id), 3000);
 })();
