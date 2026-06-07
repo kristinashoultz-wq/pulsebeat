@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PulseBeat — Settings</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <header>
+      <h1>Settings</h1>
+      <nav>
+        <a href="chat.html">Back to chat</a>
+      </nav>
+    </header>
+
+    <main>
+
+      <section>
+        <h2>Profile</h2>
+        <article>
+          <label for="display-name">Display name</label>
+          <input type="text" id="display-name" name="display-name" placeholder="Your name">
+
+          <label for="avatar" style="margin-top: 0.75rem;">Profile picture</label>
+          <input type="file" id="avatar" name="avatar" accept="image/*">
+        </article>
+      </section>
+
+      <section>
+        <h2>Appearance</h2>
+        <article>
+          <fieldset>
+            <legend>Theme</legend>
+            <label>
+              <input type="radio" name="theme" value="dark" checked>
+              Dark
+            </label>
+            <label>
+              <input type="radio" name="theme" value="light">
+              Light
+            </label>
+          </fieldset>
+
+          <div class="color-row" style="margin-top: 1rem;">
+            <label for="color-incoming">Incoming color</label>
+            <input type="color" id="color-incoming" name="color-incoming" value="#00b4a6">
+          </div>
+
+          <div class="color-row">
+            <label for="color-outgoing">Outgoing color</label>
+            <input type="color" id="color-outgoing" name="color-outgoing" value="#1c6b65">
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <h2>Ping backs</h2>
+        <p>Customize what your three response buttons say.</p>
+        <article>
+          <label for="ping-1">Button 1</label>
+          <input type="text" id="ping-1" name="ping-1" placeholder="Response 1" maxlength="30">
+
+          <label for="ping-2" style="margin-top: 0.75rem;">Button 2</label>
+          <input type="text" id="ping-2" name="ping-2" placeholder="Response 2" maxlength="30">
+
+          <label for="ping-3" style="margin-top: 0.75rem;">Button 3</label>
+          <input type="text" id="ping-3" name="ping-3" placeholder="Response 3" maxlength="30">
+        </article>
+      </section>
+
+      <section>
+        <h2>Notifications</h2>
+        <article>
+          <label>
+            <input type="checkbox" id="notifications" name="notifications">
+            Enable push notifications
+          </label>
+          <p style="margin-top: 0.5rem;">Get notified when a signal arrives, even when the app is closed.</p>
+        </article>
+      </section>
+
+      <section>
+        <button type="submit">Save settings</button>
+      </section>
+
+    </main>
+
+  </body>
+</html>

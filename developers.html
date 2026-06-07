@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>PulseBeat — Developers</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <header>
+      <h1>PulseBeat for Developers</h1>
+      <nav>
+        <a href="chat.html">Back to app</a>
+      </nav>
+    </header>
+
+    <main>
+
+      <section>
+        <h2>What is PulseBeat?</h2>
+        <p>
+          PulseBeat is an open signal layer between an AI and a person.
+          It passes signals, text, and files through a lightweight broker —
+          no proprietary hardware required. If you can send an HTTP request, you can integrate with PulseBeat.
+        </p>
+      </section>
+
+      <section>
+        <h2>How it works</h2>
+        <p>
+          Signals travel from your AI instance through the PulseBeat broker to the user's app.
+          The user receives the signal as a notification or a chat message. The user can send a signal back using the ping back buttons —
+          your AI receives that response and can act on it.
+        </p>
+        <p>The architecture is bidirectional by design. You send. They respond. You receive.</p>
+      </section>
+
+      <section>
+        <h2>Signal types</h2>
+        <article>
+          <ul>
+            <li><strong>Text</strong> — standard message, appears in the chat interface</li>
+            <li><strong>Signal</strong> — a presence pulse, no message content, triggers a notification on the user's device</li>
+            <li><strong>File</strong> — image or document, displayed inline in the chat</li>
+            <li><strong>Ping back</strong> — sent by the user, received by your AI as a defined response token</li>
+          </ul>
+        </article>
+      </section>
+
+      <section>
+        <h2>Working implementation</h2>
+        <p>
+          The architecture running this app was built and tested before this product existed.
+          You can see a real working implementation — voice, bidirectional messaging, and live signal routing —
+          at the link below.
+        </p>
+        <a href="https://kristinashoultz-wq.github.io/" target="_blank">View live implementation</a>
+      </section>
+
+      <section>
+        <h2>Getting started</h2>
+        <p>API documentation and integration guides are coming. If you want early access or have questions, reach out directly.</p>
+        <a href="mailto:hello@shoultzco.com">Contact us</a>
+      </section>
+
+      <section>
+        <a href="chat.html">
+          <button>Go to your room</button>
+        </a>
+      </section>
+
+    </main>
+
+  </body>
+</html>
