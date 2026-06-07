@@ -80,8 +80,7 @@ async function pollIncoming(userId) {
   const session = await requireAuth();
   currentSession = session;
 
-  const isPaid = localStorage.getItem('pb_paid') === 'true';
-  if (isPaid) await loadMessages(session.user.id);
+  await loadMessages(session.user.id);
 
   setInterval(() => pollIncoming(session.user.id), 3000);
 })();
