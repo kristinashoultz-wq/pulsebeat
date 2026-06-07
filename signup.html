@@ -11,7 +11,7 @@
         <h1>PulseBeat</h1>
         <p>Feel what matters.</p>
 
-        <form>
+        <form id="signup-form">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
 
@@ -29,11 +29,43 @@
             I confirm I am 18 or older
           </label>
 
+          <p id="error-msg" style="color: #f85149; display: none;"></p>
+
           <button type="submit">Create Account</button>
         </form>
 
         <p class="footer-link"><a href="signin.html">Already have an account? Sign in</a></p>
       </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      requireGuest();
+
+      document.getElementById('signup-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm').value;
+        const errorMsg = document.getElementById('error-msg');
+
+        if (password !== confirm) {
+          errorMsg.textContent = 'Passwords do not match.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+
+        const result = await signUp(name, email, password);
+        if (result.error) {
+          errorMsg.textContent = result.error;
+          errorMsg.style.display = 'block';
+        } else {
+          window.location.href = 'welcome.html';
+        }
+      });
+    </script>
   </body>
 </html>

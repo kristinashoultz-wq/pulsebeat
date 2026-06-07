@@ -58,14 +58,14 @@
         <h2>Ping backs</h2>
         <p>Customize what your three response buttons say.</p>
         <article>
-          <label for="ping-1">Button 1</label>
-          <input type="text" id="ping-1" name="ping-1" placeholder="Response 1" maxlength="30">
+          <label for="ping-1-input">Button 1</label>
+          <input type="text" id="ping-1-input" name="ping-1" placeholder="Response 1" maxlength="30">
 
-          <label for="ping-2" style="margin-top: 0.75rem;">Button 2</label>
-          <input type="text" id="ping-2" name="ping-2" placeholder="Response 2" maxlength="30">
+          <label for="ping-2-input" style="margin-top: 0.75rem;">Button 2</label>
+          <input type="text" id="ping-2-input" name="ping-2" placeholder="Response 2" maxlength="30">
 
-          <label for="ping-3" style="margin-top: 0.75rem;">Button 3</label>
-          <input type="text" id="ping-3" name="ping-3" placeholder="Response 3" maxlength="30">
+          <label for="ping-3-input" style="margin-top: 0.75rem;">Button 3</label>
+          <input type="text" id="ping-3-input" name="ping-3" placeholder="Response 3" maxlength="30">
         </article>
       </section>
 
@@ -81,10 +81,38 @@
       </section>
 
       <section>
-        <button type="submit">Save settings</button>
+        <button type="button" id="save-btn">Save settings</button>
+      </section>
+
+      <section>
+        <button type="button" id="signout-btn" class="secondary">Sign out</button>
       </section>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+    <script>
+      requireAuth();
+
+      // Pre-fill saved values
+      document.getElementById('ping-1-input').value = localStorage.getItem('pb_ping1') || '';
+      document.getElementById('ping-2-input').value = localStorage.getItem('pb_ping2') || '';
+      document.getElementById('ping-3-input').value = localStorage.getItem('pb_ping3') || '';
+      const savedTheme = localStorage.getItem('pb_theme') || 'dark';
+      document.querySelector(`input[name="theme"][value="${savedTheme}"]`).checked = true;
+      document.getElementById('color-incoming').value = localStorage.getItem('pb_color_incoming') || '#00b4a6';
+      document.getElementById('color-outgoing').value = localStorage.getItem('pb_color_outgoing') || '#1c6b65';
+
+      document.getElementById('save-btn').addEventListener('click', () => {
+        saveSettings();
+        document.getElementById('save-btn').textContent = 'Saved.';
+        setTimeout(() => document.getElementById('save-btn').textContent = 'Save settings', 2000);
+      });
+
+      document.getElementById('signout-btn').addEventListener('click', signOut);
+    </script>
   </body>
 </html>

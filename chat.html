@@ -17,28 +17,23 @@
     <main>
 
       <section id="message-list">
-        <article class="message incoming">
-          <p>Signal received.</p>
-        </article>
-        <article class="message outgoing">
-          <p>Signal sent.</p>
-        </article>
+        <!-- Messages load here -->
       </section>
 
       <section id="ping-backs">
-        <button type="button">Response 1</button>
-        <button type="button">Response 2</button>
-        <button type="button">Response 3</button>
+        <button type="button" id="ping-1">Response 1</button>
+        <button type="button" id="ping-2">Response 2</button>
+        <button type="button" id="ping-3">Response 3</button>
       </section>
 
       <section id="input-area">
-        <form>
+        <form id="message-form">
           <label for="attachment" class="attachment-label" title="Attach file">📎
             <input type="file" id="attachment" name="attachment" accept="image/*,.pdf,.txt">
           </label>
 
           <label for="message" class="sr-only">Message</label>
-          <input type="text" id="message" name="message" placeholder="Send a message...">
+          <input type="text" id="message" name="message" placeholder="Send a message..." autocomplete="off">
 
           <button type="submit">Send</button>
         </form>
@@ -46,5 +41,10 @@
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/chat.js"></script>
   </body>
 </html>
