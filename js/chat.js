@@ -64,10 +64,9 @@ function subscribeToMessages(userId) {
     .on('postgres_changes', {
       event: 'INSERT',
       schema: 'public',
-      table: 'Messages',
-      filter: `user_id=eq.${userId}`
+      table: 'Messages'
     }, (payload) => {
-      if (payload.new.direction === 'incoming') {
+      if (payload.new.user_id === userId && payload.new.direction === 'incoming') {
         renderMessage(payload.new.content, 'incoming');
       }
     })
