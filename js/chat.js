@@ -88,6 +88,11 @@ function getSenderPattern(content) {
   return [100, 50, 200]; // generic
 }
 
+// Prime vibration on first tap so the poller can fire it from a timer
+document.addEventListener('click', () => {
+  if ('vibrate' in navigator) navigator.vibrate(0);
+}, { once: true });
+
 // Init
 (async () => {
   const session = await requireAuth();
