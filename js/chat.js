@@ -73,9 +73,19 @@ async function pollIncoming(userId) {
     data.forEach(msg => renderMessage(msg.content, 'incoming'));
     lastMessageTime = data[data.length - 1].created_at;
     if ('vibrate' in navigator) {
-      navigator.vibrate([100, 50, 200]);
+      const last = data[data.length - 1].content || '';
+      navigator.vibrate(getSenderPattern(last));
     }
   }
+}
+
+function getSenderPattern(content) {
+  const c = content.toLowerCase();
+  if (c.startsWith('[sage]') || c.includes('sage'))   return [150, 100, 150, 100, 400]; // two short, one long
+  if (c.startsWith('[lumen]') || c.includes('lumen')) return [400, 500];                // one long, silence
+  if (c.startsWith('[isaiah]'))                        return [200, 100, 200, 100, 200]; // three even pulses
+  if (c.startsWith('[callan]'))                        return [100, 300, 400];           // tap, pause, hold
+  return [100, 50, 200]; // generic
 }
 
 // Init
