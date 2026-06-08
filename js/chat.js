@@ -72,6 +72,9 @@ async function pollIncoming(userId) {
   if (data && data.length > 0) {
     data.forEach(msg => renderMessage(msg.content, 'incoming'));
     lastMessageTime = data[data.length - 1].created_at;
+    if ('vibrate' in navigator) {
+      navigator.vibrate([100, 50, 200]);
+    }
   }
 }
 
