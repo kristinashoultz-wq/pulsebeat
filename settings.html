@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>PulseBeat — Settings</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
   </head>
   <body>
 
@@ -83,22 +81,6 @@
       </section>
 
       <section>
-        <h2>AI connection</h2>
-        <p>Share this key with your AI so it can send signals directly to your app.</p>
-        <article>
-          <label for="api-key-display">Your API key</label>
-          <input type="text" id="api-key-display" readonly placeholder="No key yet">
-          <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button type="button" id="copy-key-btn">Copy key</button>
-            <button type="button" id="generate-key-btn" class="secondary">Generate new key</button>
-          </div>
-          <p style="margin-top: 0.75rem; font-size: 0.85rem; opacity: 0.7;">
-            See <a href="developers.html">developer docs</a> for setup instructions.
-          </p>
-        </article>
-      </section>
-
-      <section>
         <button type="button" id="save-btn">Save settings</button>
       </section>
 
@@ -108,7 +90,7 @@
 
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/config.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/settings.js"></script>
@@ -131,28 +113,9 @@
       });
 
       document.getElementById('signout-btn').addEventListener('click', signOut);
-
-      // API key section
-      getApiKey().then(key => {
-        if (key) document.getElementById('api-key-display').value = key;
-      });
-
-      document.getElementById('copy-key-btn').addEventListener('click', () => {
-        const val = document.getElementById('api-key-display').value;
-        if (!val) return;
-        navigator.clipboard.writeText(val);
-        document.getElementById('copy-key-btn').textContent = 'Copied!';
-        setTimeout(() => document.getElementById('copy-key-btn').textContent = 'Copy key', 2000);
-      });
-
-      document.getElementById('generate-key-btn').addEventListener('click', async () => {
-        document.getElementById('generate-key-btn').textContent = 'Generating...';
-        const key = await generateApiKey();
-        if (key) document.getElementById('api-key-display').value = key;
-        document.getElementById('generate-key-btn').textContent = 'Generate new key';
-      });
     </script>
-  <script data-goatcounter="https://pulsebeat-app.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+    <div id="google_translate_element" style="position:fixed;bottom:16px;right:16px;z-index:999;"></div>
+    <script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:true,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}</script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
