@@ -18,10 +18,11 @@ async function loadMessages(userId) {
     .from('Messages')
     .select('*')
     .eq('user_id', userId)
-    .order('created_at', { ascending: true });
+    .order('created_at', { ascending: false })
+    .limit(100);
 
   if (error || !data) return;
-  data.forEach(msg => renderMessage(msg.content, msg.direction));
+  data.reverse().forEach(msg => renderMessage(msg.content, msg.direction));
 }
 
 async function sendMessage(content) {
