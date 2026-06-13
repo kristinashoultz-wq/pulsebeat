@@ -23,6 +23,7 @@ async function loadMessages(userId) {
 
   if (error || !data) return;
   data.reverse().forEach(msg => renderMessage(msg.content, msg.direction));
+  setTimeout(() => { messageList.scrollTop = messageList.scrollHeight; }, 0);
 }
 
 async function sendMessage(content) {
