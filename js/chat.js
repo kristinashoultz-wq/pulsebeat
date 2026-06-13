@@ -3,6 +3,16 @@ const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message');
 let currentSession = null;
 
+// Coming soon banner — show once, dismiss permanently
+if (!localStorage.getItem('pb_banner_dismissed')) {
+  const banner = document.getElementById('coming-soon-banner');
+  if (banner) banner.style.display = 'flex';
+  document.getElementById('dismiss-banner').addEventListener('click', () => {
+    banner.style.display = 'none';
+    localStorage.setItem('pb_banner_dismissed', '1');
+  });
+}
+
 function renderMessage(content, direction) {
   const article = document.createElement('article');
   article.className = `message ${direction}`;

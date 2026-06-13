@@ -273,6 +273,40 @@ button[type="button"].secondary:hover {
 
 /* --- Chat page --- */
 
+#coming-soon-banner {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+#coming-soon-banner p {
+  margin: 0;
+}
+
+#dismiss-banner {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+#dismiss-banner:hover {
+  background: none;
+  color: var(--text-primary);
+}
+
 #message-list {
   display: flex;
   flex-direction: column;
