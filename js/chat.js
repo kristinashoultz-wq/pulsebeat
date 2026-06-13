@@ -10,7 +10,7 @@ function renderMessage(content, direction) {
   p.textContent = content;
   article.appendChild(p);
   messageList.appendChild(article);
-  messageList.scrollTop = messageList.scrollHeight;
+  article.scrollIntoView({ block: 'end' });
 }
 
 async function loadMessages(userId) {
@@ -23,7 +23,7 @@ async function loadMessages(userId) {
 
   if (error || !data) return;
   data.reverse().forEach(msg => renderMessage(msg.content, msg.direction));
-  setTimeout(() => { messageList.scrollTop = messageList.scrollHeight; }, 0);
+  setTimeout(() => { messageList.lastElementChild?.scrollIntoView({ block: 'end' }); }, 0);
 }
 
 async function sendMessage(content) {
